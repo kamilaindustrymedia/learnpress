@@ -434,12 +434,13 @@ class LP_Addon {
 		$default_path        = $this->plugin_folder_path . "/templates/$template_name";
 		$folder_name_rewrite = learn_press_template_path();
 		$from_theme_path     = sprintf(
-			'%s/%s/%s/%s/%s',
+			'%s/%s/%s/%s/%s%s',
 			get_template_directory(),
 			$folder_name_rewrite,
 			'addons',
 			str_replace( 'learnpress-', '', $this->plugin_folder_name ),
-			$template_name
+			$template_name,
+			! preg_match( '/\.php$/', $template_name ) ? '.php' : ''
 		);
 		$path_load           = file_exists( $from_theme_path ) ? $from_theme_path : $default_path;
 		Template::instance()->get_template( $path_load, $args );
